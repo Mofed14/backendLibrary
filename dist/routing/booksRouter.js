@@ -8,5 +8,8 @@ const booksController_1 = require("../controller/booksController");
 const router = express_1.default.Router();
 const bookcontroller = new booksController_1.BookController();
 router.get("/", bookcontroller.find);
+router.post("/", bookcontroller.create);
+router.put("/:id", bookcontroller.update);
+router.delete("/:id", bookcontroller.delete);
 exports.default = router;
 //# sourceMappingURL=booksRouter.js.map
