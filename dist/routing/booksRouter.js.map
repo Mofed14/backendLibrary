@@ -1,0 +1,1 @@
+{"version":3,"file":"booksRouter.js","sourceRoot":"","sources":["../../src/routing/booksRouter.ts"],"names":[],"mappings":";;;;;AAAA,sDAA8B;AAC9B,mEAA+D;AAC/D,MAAM,MAAM,GAAG,iBAAO,CAAC,MAAM,EAAE,CAAC;AAEhC,MAAM,cAAc,GAAG,IAAI,gCAAc,EAAE,CAAC;AAE5C,MAAM,CAAC,GAAG,CAAC,GAAG,EAAE,cAAc,CAAC,IAAI,CAAC,CAAC;AAErC,kBAAe,MAAM,CAAC"}

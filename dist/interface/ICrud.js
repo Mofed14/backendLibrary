@@ -1,3 +1,3 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=bookInterface.js.map
+//# sourceMappingURL=ICrud.js.map
