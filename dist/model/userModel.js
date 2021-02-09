@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const joi_phone_number_1 = __importDefault(require("joi-phone-number"));
 const joi_1 = __importDefault(require("joi"));
-const bookSchema = joi_1.default.object().keys({
+const userSchema = joi_1.default.object().keys({
     userId: mongoose_1.default.Types.ObjectId,
     username: joi_1.default.string().min(2).max(40).required(),
     password: joi_1.default.string().min(3).max(15).required(),
@@ -20,5 +20,5 @@ const bookSchema = joi_1.default.object().keys({
     address: joi_1.default.string().required(),
     phoneNumber: joi_phone_number_1.default.string().phoneNumber(),
 });
-module.exports = { bookSchema };
+module.exports = { userSchema };
 //# sourceMappingURL=userModel.js.map

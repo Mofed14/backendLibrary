@@ -3,7 +3,7 @@ import customeJoi from "joi-phone-number";
 
 import joi from "joi";
 
-const bookSchema = joi.object().keys({
+const userSchema = joi.object().keys({
   userId: mongoose.Types.ObjectId,
   username: joi.string().min(2).max(40).required(),
   password: joi.string().min(3).max(15).required(),
@@ -18,4 +18,4 @@ const bookSchema = joi.object().keys({
   phoneNumber: customeJoi.string().phoneNumber(),
 });
 
-module.exports = { bookSchema };
+module.exports = { userSchema };

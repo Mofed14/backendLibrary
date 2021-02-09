@@ -1,10 +1,10 @@
 import joi from "joi";
 import mongoose from "mongoose";
 
-const adminSchema = joi.object({
-  adminId: mongoose.Types.ObjectId,
-  username: joi.string().required(),
-  password: joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
+const categorySchema = joi.object({
+  categoryId: mongoose.Types.ObjectId,
+  categoryName: joi.string().required(),
+  categoryDisciption: joi.string().min(100).max(1000).required(),
 });
 
-module.exports = { adminSchema };
+module.exports = { categorySchema };
