@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 const schema = mongoose.Schema;
 
 const bookSchema = new schema({
-  bookId: mongoose.Types.ObjectId,
   bookName: { type: String, required: true },
   author: { type: String, required: true },
   categoryId: { type: String, required: true }, // { type: schema.Types.ObjectId, ref: "categorySchema" },

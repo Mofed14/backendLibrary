@@ -8,14 +8,6 @@ export class BookController implements Icrud {
   constructor() {}
   async find(req: Request, res: Response) {
     try {
-      const validation = ValidateBook(req.body);
-      if (validation.error) {
-        res.json({
-          case: 2,
-          message: "invalid data",
-          error: validation.error.message,
-        });
-      }
       const books = await booksmodel.find().sort({ createdAt: -1 });
       res.json({
         case: 1,

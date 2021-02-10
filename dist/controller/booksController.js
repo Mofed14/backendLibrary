@@ -21,14 +21,6 @@ class BookController {
     find(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const validation = validator_1.ValidateBook(req.body);
-                if (validation.error) {
-                    res.json({
-                        case: 2,
-                        message: "invalid data",
-                        error: validation.error.message,
-                    });
-                }
                 const books = yield bookModel_1.default.find().sort({ createdAt: -1 });
                 res.json({
                     case: 1,

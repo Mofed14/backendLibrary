@@ -27,7 +27,6 @@ export function ValidateCategory(category: any) {
 }
 
 // user validation
-import customeJoi from "joi-phone-number";
 const userSchema = joi.object().keys({
   username: joi.string().min(2).max(40).required(),
   password: joi.string().min(3).max(15).required(),
@@ -39,7 +38,7 @@ const userSchema = joi.object().keys({
   lastname: joi.string().required(),
   picture: "pic",
   address: joi.string().required(),
-  phoneNumber: customeJoi.string().phoneNumber(),
+  phoneNumber: joi.number().max(11).required(),
 });
 export function ValidateUser(user: any) {
   return userSchema.validate(user);

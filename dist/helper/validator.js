@@ -30,7 +30,6 @@ function ValidateCategory(category) {
 }
 exports.ValidateCategory = ValidateCategory;
 // user validation
-const joi_phone_number_1 = __importDefault(require("joi-phone-number"));
 const userSchema = joi_1.default.object().keys({
     username: joi_1.default.string().min(2).max(40).required(),
     password: joi_1.default.string().min(3).max(15).required(),
@@ -42,7 +41,7 @@ const userSchema = joi_1.default.object().keys({
     lastname: joi_1.default.string().required(),
     picture: "pic",
     address: joi_1.default.string().required(),
-    phoneNumber: joi_phone_number_1.default.string().phoneNumber(),
+    phoneNumber: joi_1.default.number().max(11).required(),
 });
 function ValidateUser(user) {
     return userSchema.validate(user);
