@@ -1,7 +1,7 @@
 import booksmodel from "../model/bookModel";
 import { Request, Response } from "express";
 import { Icrud } from "../interface/ICrud";
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { ValidateBook } from "../helper/validator";
 
 export class BookController implements Icrud {
@@ -16,7 +16,7 @@ export class BookController implements Icrud {
           error: validation.error.message,
         });
       }
-      const books = await booksmodel.find();
+      const books = await booksmodel.find().sort({ createdAt: -1 });
       res.json({
         case: 1,
         message: "All Books",
@@ -66,10 +66,43 @@ export class BookController implements Icrud {
       });
     }
   }
-  update(req: Request, res: Response) {
-    throw new Error("Method not implemented.");
+  async update(req: Request, res: Response) {
+    try {
+      const validation = ValidateBook(req.body);
+      if (validation.error) {
+        res.json({
+          case: 2,
+          message: "invalid data",
+          error: validation.error.message,
+        });
+      }
+      const book = await booksmodel.findByIdAndUpdate(req.params.id, {
+        $set: req.body,
+      });
+      res.json({
+        case: 1,
+        message: "The book is updated",
+        data: req.body,
+      });
+    } catch (error) {
+      res.json({
+        case: 0,
+        message: error.message,
+      });
+    }
   }
-  delete(req: Request, res: Response) {
-    throw new Error("Method not implemented.");
+  async delete(req: Request, res: Response) {
+    try {
+      await booksmodel.findByIdAndDelete(req.params.id);
+      res.json({
+        case: 1,
+        message: "The book is deleted",
+      });
+    } catch (error) {
+      res.json({
+        case: 0,
+        message: error.message,
+      });
+    }
   }
 }

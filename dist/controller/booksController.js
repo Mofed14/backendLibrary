@@ -29,7 +29,7 @@ class BookController {
                         error: validation.error.message,
                     });
                 }
-                const books = yield bookModel_1.default.find();
+                const books = yield bookModel_1.default.find().sort({ createdAt: -1 });
                 res.json({
                     case: 1,
                     message: "All Books",
@@ -83,10 +83,49 @@ class BookController {
         });
     }
     update(req, res) {
-        throw new Error("Method not implemented.");
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const validation = validator_1.ValidateBook(req.body);
+                if (validation.error) {
+                    res.json({
+                        case: 2,
+                        message: "invalid data",
+                        error: validation.error.message,
+                    });
+                }
+                const book = yield bookModel_1.default.findByIdAndUpdate(req.params.id, {
+                    $set: req.body,
+                });
+                res.json({
+                    case: 1,
+                    message: "The book is updated",
+                    data: req.body,
+                });
+            }
+            catch (error) {
+                res.json({
+                    case: 0,
+                    message: error.message,
+                });
+            }
+        });
     }
     delete(req, res) {
-        throw new Error("Method not implemented.");
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield bookModel_1.default.findByIdAndDelete(req.params.id);
+                res.json({
+                    case: 1,
+                    message: "The book is deleted",
+                });
+            }
+            catch (error) {
+                res.json({
+                    case: 0,
+                    message: error.message,
+                });
+            }
+        });
     }
 }
 exports.BookController = BookController;
