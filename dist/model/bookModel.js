@@ -4,19 +4,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const joi_1 = __importDefault(require("joi"));
 const schema = mongoose_1.default.Schema;
-const bookSchema = joi_1.default.object({
+const bookSchema = new schema({
     bookId: mongoose_1.default.Types.ObjectId,
-    bookName: joi_1.default.string().min(2).max(40).required(),
-    author: joi_1.default.string().min(2).max(12).required(),
-    categoryId: { type: schema.Types.ObjectId, ref: "categorySchema" },
-    picture: "pic",
-    pages: joi_1.default.number().required(),
-    darElNashr: joi_1.default.string().required(),
-    price: joi_1.default.number().required(),
+    bookName: { type: String, required: true },
+    author: { type: String, required: true },
+    categoryId: { type: String, required: true },
+    picture: { type: String, required: true },
+    pages: { type: Number, required: true },
+    darElNashr: { type: String, required: true },
+    price: { type: Number, required: true },
     createdAt: { type: Date, default: Date.now },
-    description: joi_1.default.string().min(100).max(1000).required(),
+    description: { type: String, required: true },
 });
-module.exports = { bookSchema };
+const Books = mongoose_1.default.model("Books", bookSchema);
+exports.default = Books;
 //# sourceMappingURL=bookModel.js.map

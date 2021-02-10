@@ -1,18 +1,19 @@
 import mongoose from "mongoose";
-import joi from "joi";
 const schema = mongoose.Schema;
 
-const bookSchema = joi.object({
+const bookSchema = new schema({
   bookId: mongoose.Types.ObjectId,
-  bookName: joi.string().min(2).max(40).required(),
-  author: joi.string().min(2).max(12).required(),
-  categoryId: { type: schema.Types.ObjectId, ref: "categorySchema" },
-  picture: "pic",
-  pages: joi.number().required(),
-  darElNashr: joi.string().required(),
-  price: joi.number().required(),
+  bookName: { type: String, required: true },
+  author: { type: String, required: true },
+  categoryId: { type: String, required: true }, // { type: schema.Types.ObjectId, ref: "categorySchema" },
+  picture: { type: String, required: true },
+  pages: { type: Number, required: true },
+  darElNashr: { type: String, required: true },
+  price: { type: Number, required: true },
   createdAt: { type: Date, default: Date.now },
-  description: joi.string().min(100).max(1000).required(),
+  description: { type: String, required: true },
 });
 
-module.exports = { bookSchema };
+const Books = mongoose.model("Books", bookSchema);
+
+export default Books;
