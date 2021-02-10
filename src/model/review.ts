@@ -1,14 +1,13 @@
-import joi, { date } from "joi";
 import mongoose from "mongoose";
 const schema = mongoose.Schema;
 
-const categorySchema = joi.object({
+const reviewSchema = new schema({
   reviewId: mongoose.Types.ObjectId,
   BookId: { type: schema.Types.ObjectId, ref: "bookSchema" },
   userId: { type: schema.Types.ObjectId, ref: "userSchema" },
-  textReview: joi.string(),
-  rate: joi.number().min(1).max(5),
+  textReview: String,
+  rate: Number,
   date: { type: Date, default: Date.now() },
 });
-
-module.exports = { categorySchema };
+const review = mongoose.model("review", reviewSchema);
+export default review;

@@ -1,8 +1,11 @@
-import joi from "joi";
+import mongoose from "mongoose";
+const schema = mongoose.Schema;
 
-const adminSchema = joi.object({
-  username: joi.string().required(),
-  password: joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")).required(),
+const adminSchema = new schema({
+  username: { type: String, required: true },
+  password: { type: String, required: true },
 });
 
-module.exports = { adminSchema };
+const admin = mongoose.model("admin", adminSchema);
+
+export default admin;

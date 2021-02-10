@@ -1,10 +1,12 @@
-import joi from "joi";
 import mongoose from "mongoose";
+const schema = mongoose.Schema;
 
-const categorySchema = joi.object({
+const categorySchema = new schema({
   categoryId: mongoose.Types.ObjectId,
-  categoryName: joi.string().required(),
-  categoryDisciption: joi.string().min(100).max(1000).required(),
+  categoryName: { type: String, required: true },
+  categoryDisciption: { type: String, required: true },
 });
 
-module.exports = { categorySchema };
+const category = mongoose.model("category", categorySchema);
+
+export default category;

@@ -1,21 +1,28 @@
 import mongoose from "mongoose";
-import customeJoi from "joi-phone-number";
+const schema = mongoose.Schema;
 
-import joi from "joi";
-
-const userSchema = joi.object().keys({
+const userSchema = new schema({
   userId: mongoose.Types.ObjectId,
-  username: joi.string().min(2).max(40).required(),
-  password: joi.string().min(3).max(15).required(),
-  email: joi
-    .string()
-    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
-    .required(),
-  fisrtname: joi.string().required(),
-  lastname: joi.string().required(),
+  username: { type: String, required: true },
+  password: { type: String, required: true },
+  email: {
+    type: String,
+    trim: true,
+    lowercase: true,
+    unique: true,
+    required: true,
+    match: [
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      "Please fill a valid email address",
+    ],
+  },
+  fisrtname: { type: String, required: true },
+  lastname: { type: String, required: true },
   picture: "pic",
-  address: joi.string().required(),
-  phoneNumber: customeJoi.string().phoneNumber(),
+  address: { type: String, required: true },
+  phoneNumber: { type: Number, required: true },
 });
 
-module.exports = { userSchema };
+const user = mongoose.model("user", userSchema);
+
+export default user;

@@ -4,21 +4,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const joi_phone_number_1 = __importDefault(require("joi-phone-number"));
-const joi_1 = __importDefault(require("joi"));
-const userSchema = joi_1.default.object().keys({
+const schema = mongoose_1.default.Schema;
+const userSchema = new schema({
     userId: mongoose_1.default.Types.ObjectId,
-    username: joi_1.default.string().min(2).max(40).required(),
-    password: joi_1.default.string().min(3).max(15).required(),
-    email: joi_1.default
-        .string()
-        .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
-        .required(),
-    fisrtname: joi_1.default.string().required(),
-    lastname: joi_1.default.string().required(),
+    username: { type: String, required: true },
+    password: { type: String, required: true },
+    email: {
+        type: String,
+        trim: true,
+        lowercase: true,
+        unique: true,
+        required: true,
+        match: [
+            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+            "Please fill a valid email address",
+        ],
+    },
+    fisrtname: { type: String, required: true },
+    lastname: { type: String, required: true },
     picture: "pic",
-    address: joi_1.default.string().required(),
-    phoneNumber: joi_phone_number_1.default.string().phoneNumber(),
+    address: { type: String, required: true },
+    phoneNumber: { type: Number, required: true },
 });
-module.exports = { userSchema };
+const user = mongoose_1.default.model("user", userSchema);
+exports.default = user;
 //# sourceMappingURL=userModel.js.map
