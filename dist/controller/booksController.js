@@ -59,7 +59,6 @@ class BookController {
                     description: req.body.description,
                 });
                 books.save();
-                console.log("mofed");
                 res.json({
                     case: 1,
                     message: "Books Is Created",

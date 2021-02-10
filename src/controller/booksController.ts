@@ -44,7 +44,6 @@ export class BookController implements Icrud {
         description: req.body.description,
       });
       books.save();
-      console.log("mofed");
 
       res.json({
         case: 1,
