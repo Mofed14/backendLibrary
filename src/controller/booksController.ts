@@ -33,7 +33,6 @@ export class BookController implements Icrud {
       }
 
       const books = await new booksmodel({
-        booksId: mongoose.Types.ObjectId(),
         bookName: req.body.bookName,
         author: req.body.author,
         categoryId: req.body.categoryId,

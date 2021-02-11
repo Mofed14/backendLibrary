@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookController = void 0;
 const bookModel_1 = __importDefault(require("../model/bookModel"));
-const mongoose_1 = __importDefault(require("mongoose"));
 const validator_1 = require("../helper/validator");
 class BookController {
     constructor() { }
@@ -48,7 +47,6 @@ class BookController {
                     });
                 }
                 const books = yield new bookModel_1.default({
-                    booksId: mongoose_1.default.Types.ObjectId(),
                     bookName: req.body.bookName,
                     author: req.body.author,
                     categoryId: req.body.categoryId,

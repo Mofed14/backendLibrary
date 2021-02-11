@@ -6,8 +6,20 @@ import { ValidateCategory } from "../helper/validator";
 
 export class CategoryController implements Icrud {
   constructor() {}
-  find(req: Request, res: Response) {
-    throw new Error("Method not implemented.");
+  async find(req: Request, res: Response) {
+    try {
+      const categories = await categoryModel.find().sort({ createdAt: -1 });
+      res.json({
+        case: 1,
+        message: "All categories",
+        data: categories,
+      });
+    } catch (error) {
+      res.json({
+        case: 0,
+        message: error.message,
+      });
+    }
   }
   async create(req: Request, res: Response) {
     try {
@@ -39,10 +51,43 @@ export class CategoryController implements Icrud {
       });
     }
   }
-  update(req: Request, res: Response) {
-    throw new Error("Method not implemented.");
+  async update(req: Request, res: Response) {
+    try {
+      const validation = ValidateCategory(req.body);
+      if (validation.error) {
+        res.json({
+          case: 2,
+          message: "invalid data",
+          error: validation.error.message,
+        });
+      }
+      await categoryModel.findByIdAndUpdate(req.params.id, {
+        $set: req.body,
+      });
+      res.json({
+        case: 1,
+        message: "The category is updated",
+        data: req.body,
+      });
+    } catch (error) {
+      res.json({
+        case: 0,
+        message: error.message,
+      });
+    }
   }
-  delete(req: Request, res: Response) {
-    throw new Error("Method not implemented.");
+  async delete(req: Request, res: Response) {
+    try {
+      await categoryModel.findByIdAndDelete(req.params.id);
+      res.json({
+        case: 1,
+        message: "The category is deleted",
+      });
+    } catch (error) {
+      res.json({
+        case: 0,
+        message: error.message,
+      });
+    }
   }
 }
