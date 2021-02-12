@@ -12,19 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BookController = void 0;
-const bookModel_1 = __importDefault(require("../model/bookModel"));
+exports.UserController = void 0;
+const userModel_1 = __importDefault(require("../model/userModel"));
 const validator_1 = require("../helper/validator");
-class BookController {
+class UserController {
     constructor() { }
     find(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const books = yield bookModel_1.default.find().sort({ createdAt: -1 });
+                const users = yield userModel_1.default.find().sort({ createdAt: -1 });
                 res.json({
                     case: 1,
-                    message: "All Books",
-                    data: books,
+                    message: "All users",
+                    data: users,
                 });
             }
             catch (error) {
@@ -38,7 +38,7 @@ class BookController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const validation = yield validator_1.ValidateBook(req.body);
+                const validation = yield validator_1.ValidateUser(req.body);
                 if (validation.error) {
                     res.json({
                         case: 2,
@@ -46,20 +46,21 @@ class BookController {
                         error: validation.error.message,
                     });
                 }
-                const books = yield new bookModel_1.default({
-                    bookName: req.body.bookName,
-                    author: req.body.author,
-                    picture: req.body.picture,
-                    pages: req.body.pages,
-                    darElNashr: req.body.darElNashr,
-                    price: req.body.price,
-                    description: req.body.description,
+                const users = yield new userModel_1.default({
+                    username: req.body.username,
+                    password: req.body.password,
+                    email: req.body.email,
+                    fisrtname: req.body.fisrtname,
+                    lastname: req.body.lastname,
+                    // picture: "pic",
+                    address: req.body.address,
+                    phoneNumber: req.body.phoneNumber,
                 });
-                books.save();
+                users.save();
                 res.json({
                     case: 1,
-                    message: "Book Is Created",
-                    data: books,
+                    message: "User Is Created",
+                    data: users,
                 });
             }
             catch (error) {
@@ -73,7 +74,7 @@ class BookController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const validation = yield validator_1.ValidateBook(req.body);
+                const validation = yield validator_1.ValidateUser(req.body);
                 if (validation.error) {
                     res.json({
                         case: 2,
@@ -81,12 +82,12 @@ class BookController {
                         error: validation.error.message,
                     });
                 }
-                const book = yield bookModel_1.default.findByIdAndUpdate(req.params.id, {
+                yield userModel_1.default.findByIdAndUpdate(req.params.id, {
                     $set: req.body,
                 });
                 res.json({
                     case: 1,
-                    message: "The book is updated",
+                    message: "The user is updated",
                     data: req.body,
                 });
             }
@@ -101,10 +102,10 @@ class BookController {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield bookModel_1.default.findByIdAndDelete(req.params.id);
+                yield userModel_1.default.findByIdAndDelete(req.params.id);
                 res.json({
                     case: 1,
-                    message: "The book is deleted",
+                    message: "The user is deleted",
                 });
             }
             catch (error) {
@@ -116,5 +117,5 @@ class BookController {
         });
     }
 }
-exports.BookController = BookController;
-//# sourceMappingURL=booksController.js.map
+exports.UserController = UserController;
+//# sourceMappingURL=userController.js.map

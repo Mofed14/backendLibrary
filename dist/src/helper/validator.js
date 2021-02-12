@@ -40,7 +40,7 @@ const userSchema = joi_1.default.object().keys({
         .required(),
     fisrtname: joi_1.default.string().required(),
     lastname: joi_1.default.string().required(),
-    picture: joi_1.default.string(),
+    // picture: joi.string(),
     address: joi_1.default.string().required(),
     phoneNumber: joi_1.default.number().max(11).required(),
 });

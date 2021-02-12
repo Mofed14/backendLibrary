@@ -23,7 +23,7 @@ export class BookController implements Icrud {
   }
   async create(req: Request, res: Response) {
     try {
-      const validation = ValidateBook(req.body);
+      const validation = await ValidateBook(req.body);
       if (validation.error) {
         res.json({
           case: 2,
@@ -44,7 +44,7 @@ export class BookController implements Icrud {
 
       res.json({
         case: 1,
-        message: "Books Is Created",
+        message: "Book Is Created",
         data: books,
       });
     } catch (error) {
@@ -56,7 +56,7 @@ export class BookController implements Icrud {
   }
   async update(req: Request, res: Response) {
     try {
-      const validation = ValidateBook(req.body);
+      const validation = await ValidateBook(req.body);
       if (validation.error) {
         res.json({
           case: 2,

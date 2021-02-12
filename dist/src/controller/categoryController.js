@@ -12,19 +12,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BookController = void 0;
-const bookModel_1 = __importDefault(require("../model/bookModel"));
+exports.CategoryController = void 0;
+const category_1 = __importDefault(require("../model/category"));
 const validator_1 = require("../helper/validator");
-class BookController {
+const bookModel_1 = __importDefault(require("../model/bookModel"));
+class CategoryController {
     constructor() { }
     find(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const books = yield bookModel_1.default.find().sort({ createdAt: -1 });
+                const categories = yield category_1.default
+                    .find()
+                    .populate("book")
+                    .sort({ createdAt: -1 });
                 res.json({
                     case: 1,
-                    message: "All Books",
-                    data: books,
+                    message: "All categories",
+                    data: categories,
                 });
             }
             catch (error) {
@@ -38,7 +42,7 @@ class BookController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const validation = yield validator_1.ValidateBook(req.body);
+                const validation = yield validator_1.ValidateCategory(req.body);
                 if (validation.error) {
                     res.json({
                         case: 2,
@@ -46,20 +50,15 @@ class BookController {
                         error: validation.error.message,
                     });
                 }
-                const books = yield new bookModel_1.default({
-                    bookName: req.body.bookName,
-                    author: req.body.author,
-                    picture: req.body.picture,
-                    pages: req.body.pages,
-                    darElNashr: req.body.darElNashr,
-                    price: req.body.price,
-                    description: req.body.description,
+                const categories = yield new category_1.default({
+                    categoryName: req.body.categoryName,
+                    categoryDisciption: req.body.categoryDisciption,
                 });
-                books.save();
+                categories.save();
                 res.json({
                     case: 1,
-                    message: "Book Is Created",
-                    data: books,
+                    message: "categories Is Created",
+                    data: categories,
                 });
             }
             catch (error) {
@@ -73,7 +72,7 @@ class BookController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const validation = yield validator_1.ValidateBook(req.body);
+                const validation = yield validator_1.ValidateCategory(req.body);
                 if (validation.error) {
                     res.json({
                         case: 2,
@@ -81,12 +80,12 @@ class BookController {
                         error: validation.error.message,
                     });
                 }
-                const book = yield bookModel_1.default.findByIdAndUpdate(req.params.id, {
+                yield category_1.default.findByIdAndUpdate(req.params.id, {
                     $set: req.body,
                 });
                 res.json({
                     case: 1,
-                    message: "The book is updated",
+                    message: "The category is updated",
                     data: req.body,
                 });
             }
@@ -101,10 +100,48 @@ class BookController {
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield bookModel_1.default.findByIdAndDelete(req.params.id);
+                yield category_1.default.findByIdAndDelete(req.params.id);
                 res.json({
                     case: 1,
-                    message: "The book is deleted",
+                    message: "The category is deleted",
+                });
+            }
+            catch (error) {
+                res.json({
+                    case: 0,
+                    message: error.message,
+                });
+            }
+        });
+    }
+    insertBookIncate(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const catId = req.params.catId;
+            try {
+                const validation = yield validator_1.ValidateBook(req.body);
+                if (validation.error) {
+                    res.json({
+                        case: 2,
+                        message: "invalid data",
+                        error: validation.error.message,
+                    });
+                }
+                const book = yield new bookModel_1.default({
+                    bookName: req.body.bookName,
+                    author: req.body.author,
+                    picture: req.body.picture,
+                    pages: req.body.pages,
+                    darElNashr: req.body.darElNashr,
+                    price: req.body.price,
+                    description: req.body.description,
+                }).save();
+                const cate = yield category_1.default.findById(catId).populate("book");
+                cate["book"].push(book);
+                yield cate.save();
+                res.json({
+                    case: 1,
+                    message: "The book is inserted in its category",
+                    data: cate,
                 });
             }
             catch (error) {
@@ -116,5 +153,5 @@ class BookController {
         });
     }
 }
-exports.BookController = BookController;
-//# sourceMappingURL=booksController.js.map
+exports.CategoryController = CategoryController;
+//# sourceMappingURL=categoryController.js.map

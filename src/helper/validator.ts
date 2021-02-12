@@ -37,7 +37,7 @@ const userSchema = joi.object().keys({
     .required(),
   fisrtname: joi.string().required(),
   lastname: joi.string().required(),
-  picture: "pic",
+  picture: joi.string(),
   address: joi.string().required(),
   phoneNumber: joi.number().max(11).required(),
 });

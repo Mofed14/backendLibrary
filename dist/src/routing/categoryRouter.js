@@ -8,7 +8,7 @@ const categoryController_1 = require("../controller/categoryController");
 const router = express_1.default.Router();
 const categoryController = new categoryController_1.CategoryController();
 router.get("/", categoryController.find);
-router.post("/create", categoryController.create);
+router.post("/", categoryController.create);
 router.put("/:id", categoryController.update);
 router.delete("/:id", categoryController.delete);
 /////////

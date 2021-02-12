@@ -11,11 +11,15 @@ const userSchema = new schema({
     password: { type: String, required: true },
     email: {
         type: String,
-        require: true,
+        trim: true,
+        lowercase: true,
         unique: true,
-        match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+        required: true,
+        match: [
+            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+            "Please fill a valid email address",
+        ],
     },
-    picture: { type: String, required: true },
     fisrtname: { type: String, required: true },
     lastname: { type: String, required: true },
     address: { type: String, required: true },
