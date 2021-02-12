@@ -24,6 +24,7 @@ exports.ValidateBook = ValidateBook;
 const categorySchema = joi_1.default.object({
     categoryName: joi_1.default.string().required(),
     categoryDisciption: joi_1.default.string().min(100).max(1000).required(),
+    books: joi_1.default.string(),
 });
 function ValidateCategory(category) {
     return categorySchema.validate(category);

@@ -9,6 +9,7 @@ const categorySchema = new schema({
     categoryName: { type: String, required: true },
     categoryDisciption: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
+    book: [{ type: schema.Types.ObjectId, ref: "Books" }],
 });
 const category = mongoose_1.default.model("category", categorySchema);
 exports.default = category;

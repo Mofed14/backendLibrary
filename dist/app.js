@@ -19,7 +19,7 @@ const booksRouter_1 = __importDefault(require("./routing/booksRouter"));
 const categoryRouter_1 = __importDefault(require("./routing/categoryRouter"));
 const app = express_1.default();
 const port = 4000;
-mongoose_1.default.connect("mongodb://localhost/lib");
+mongoose_1.default.connect("mongodb://localhost/libr");
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use("/books", booksRouter_1.default);

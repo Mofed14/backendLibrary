@@ -49,7 +49,6 @@ class BookController {
                 const books = yield new bookModel_1.default({
                     bookName: req.body.bookName,
                     author: req.body.author,
-                    categoryId: req.body.categoryId,
                     picture: req.body.picture,
                     pages: req.body.pages,
                     darElNashr: req.body.darElNashr,

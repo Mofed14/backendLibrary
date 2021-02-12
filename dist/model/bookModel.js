@@ -8,7 +8,6 @@ const schema = mongoose_1.default.Schema;
 const bookSchema = new schema({
     bookName: { type: String, required: true },
     author: { type: String, required: true },
-    categoryId: { type: String, required: true },
     picture: { type: String, required: true },
     pages: { type: Number, required: true },
     darElNashr: { type: String, required: true },

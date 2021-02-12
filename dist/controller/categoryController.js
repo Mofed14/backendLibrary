@@ -14,14 +14,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoryController = void 0;
 const category_1 = __importDefault(require("../model/category"));
-const mongoose_1 = __importDefault(require("mongoose"));
 const validator_1 = require("../helper/validator");
+const bookModel_1 = __importDefault(require("../model/bookModel"));
 class CategoryController {
     constructor() { }
     find(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const categories = yield category_1.default.find().sort({ createdAt: -1 });
+                const categories = yield category_1.default
+                    .find()
+                    .populate("book")
+                    .sort({ createdAt: -1 });
                 res.json({
                     case: 1,
                     message: "All categories",
@@ -39,7 +42,7 @@ class CategoryController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const validation = validator_1.ValidateCategory(req.body);
+                const validation = yield validator_1.ValidateCategory(req.body);
                 if (validation.error) {
                     res.json({
                         case: 2,
@@ -48,7 +51,6 @@ class CategoryController {
                     });
                 }
                 const categories = yield new category_1.default({
-                    categoryId: mongoose_1.default.Types.ObjectId(),
                     categoryName: req.body.categoryName,
                     categoryDisciption: req.body.categoryDisciption,
                 });
@@ -70,7 +72,7 @@ class CategoryController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const validation = validator_1.ValidateCategory(req.body);
+                const validation = yield validator_1.ValidateCategory(req.body);
                 if (validation.error) {
                     res.json({
                         case: 2,
@@ -102,6 +104,44 @@ class CategoryController {
                 res.json({
                     case: 1,
                     message: "The category is deleted",
+                });
+            }
+            catch (error) {
+                res.json({
+                    case: 0,
+                    message: error.message,
+                });
+            }
+        });
+    }
+    insertBookIncate(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const catId = req.params.catId;
+            try {
+                const validation = yield validator_1.ValidateBook(req.body);
+                if (validation.error) {
+                    res.json({
+                        case: 2,
+                        message: "invalid data",
+                        error: validation.error.message,
+                    });
+                }
+                const book = yield new bookModel_1.default({
+                    bookName: req.body.bookName,
+                    author: req.body.author,
+                    picture: req.body.picture,
+                    pages: req.body.pages,
+                    darElNashr: req.body.darElNashr,
+                    price: req.body.price,
+                    description: req.body.description,
+                }).save();
+                const cate = yield category_1.default.findById(catId).populate("book");
+                cate["book"].push(book);
+                yield cate.save();
+                res.json({
+                    case: 1,
+                    message: "The book is inserted in its category",
+                    data: cate,
                 });
             }
             catch (error) {

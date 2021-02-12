@@ -20,6 +20,7 @@ export function ValidateBook(book: any) {
 const categorySchema = joi.object({
   categoryName: joi.string().required(),
   categoryDisciption: joi.string().min(100).max(1000).required(),
+  books: joi.string(),
 });
 
 export function ValidateCategory(category: any) {

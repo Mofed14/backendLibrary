@@ -4,7 +4,6 @@ const schema = mongoose.Schema;
 const bookSchema = new schema({
   bookName: { type: String, required: true },
   author: { type: String, required: true },
-  categoryId: { type: String, required: true }, // { type: schema.Types.ObjectId, ref: "categorySchema" },
   picture: { type: String, required: true },
   pages: { type: Number, required: true },
   darElNashr: { type: String, required: true },

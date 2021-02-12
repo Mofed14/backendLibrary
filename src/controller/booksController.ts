@@ -31,11 +31,9 @@ export class BookController implements Icrud {
           error: validation.error.message,
         });
       }
-
       const books = await new booksmodel({
         bookName: req.body.bookName,
         author: req.body.author,
-        categoryId: req.body.categoryId,
         picture: req.body.picture,
         pages: req.body.pages,
         darElNashr: req.body.darElNashr,

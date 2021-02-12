@@ -6,7 +6,7 @@ import categories from "./routing/categoryRouter";
 
 const app = express();
 const port = 4000;
-mongoose.connect("mongodb://localhost/lib");
+mongoose.connect("mongodb://localhost/libr");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
