@@ -18,6 +18,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const booksRouter_1 = __importDefault(require("./routing/booksRouter"));
 const categoryRouter_1 = __importDefault(require("./routing/categoryRouter"));
 const userRouter_1 = __importDefault(require("./routing/userRouter"));
+const adminRouter_1 = __importDefault(require("./routing/adminRouter"));
 const app = express_1.default();
 const port = 4000;
 mongoose_1.default.connect("mongodb://localhost/libr");
@@ -26,6 +27,7 @@ app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use("/books", booksRouter_1.default);
 app.use("/categories", categoryRouter_1.default);
 app.use("/users", userRouter_1.default);
+app.use("/admin", adminRouter_1.default);
 function server() {
     return __awaiter(this, void 0, void 0, function* () {
         try {

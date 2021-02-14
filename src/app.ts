@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import books from "./routing/booksRouter";
 import categories from "./routing/categoryRouter";
 import users from "./routing/userRouter";
+import admin from "./routing/adminRouter";
 
 const app = express();
 const port = 4000;
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/books", books);
 app.use("/categories", categories);
 app.use("/users", users);
+app.use("/admin", admin);
 
 async function server() {
   try {
