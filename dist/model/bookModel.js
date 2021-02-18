@@ -14,6 +14,12 @@ const bookSchema = new schema({
     price: { type: Number, required: true },
     createdAt: { type: Date, default: Date.now },
     description: { type: String, required: true },
+    comments: [
+        {
+            text: String,
+            postedBy: { type: schema.Types.ObjectId, ref: "user" },
+        },
+    ],
 });
 const Books = mongoose_1.default.model("Books", bookSchema);
 exports.default = Books;

@@ -21,7 +21,17 @@ const userRouter_1 = __importDefault(require("./routing/userRouter"));
 const adminRouter_1 = __importDefault(require("./routing/adminRouter"));
 const app = express_1.default();
 const port = 4000;
-mongoose_1.default.connect("mongodb://localhost/libr");
+function db() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            yield mongoose_1.default.connect("mongodb://localhost/libr");
+        }
+        catch (error) {
+            throw error;
+        }
+    });
+}
+db();
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use("/books", booksRouter_1.default);

@@ -115,6 +115,32 @@ class BookController {
             }
         });
     }
+    updateComment(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const comment = {
+                    text: req.body.text,
+                    postedBy: req.body.postedBy,
+                };
+                const coms = yield bookModel_1.default
+                    .findByIdAndUpdate(req.params.id, {
+                    $push: { comments: comment },
+                }, { new: true })
+                    .populate("comments.postedBy");
+                res.json({
+                    case: 1,
+                    message: "added comment",
+                    data: req.body,
+                });
+            }
+            catch (error) {
+                res.json({
+                    case: 0,
+                    message: error.message,
+                });
+            }
+        });
+    }
 }
 exports.BookController = BookController;
 //# sourceMappingURL=booksController.js.map

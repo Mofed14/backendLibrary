@@ -11,5 +11,6 @@ router.get("/", bookcontroller.find);
 router.post("/create", bookcontroller.create);
 router.put("/:id", bookcontroller.update);
 router.delete("/:id", bookcontroller.delete);
+router.put("/:id/comment", bookcontroller.updateComment);
 exports.default = router;
 //# sourceMappingURL=booksRouter.js.map

@@ -8,7 +8,15 @@ import admin from "./routing/adminRouter";
 
 const app = express();
 const port = 4000;
-mongoose.connect("mongodb://localhost/libr");
+
+async function db() {
+  try {
+    await mongoose.connect("mongodb://localhost/libr");
+  } catch (error) {
+    throw error;
+  }
+}
+db();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

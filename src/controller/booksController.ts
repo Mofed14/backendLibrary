@@ -93,4 +93,31 @@ export class BookController implements Icrud {
       });
     }
   }
+  async updateComment(req, res) {
+    try {
+      const comment = {
+        text: req.body.text,
+        postedBy: req.body.postedBy,
+      };
+      const coms = await booksmodel
+        .findByIdAndUpdate(
+          req.params.id,
+          {
+            $push: { comments: comment },
+          },
+          { new: true }
+        )
+        .populate("comments.postedBy");
+      res.json({
+        case: 1,
+        message: "added comment",
+        data: req.body,
+      });
+    } catch (error) {
+      res.json({
+        case: 0,
+        message: error.message,
+      });
+    }
+  }
 }
