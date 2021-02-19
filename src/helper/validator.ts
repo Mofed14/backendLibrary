@@ -39,7 +39,7 @@ const userSchema = joi.object().keys({
   lastname: joi.string().required(),
   picture: joi.string(),
   address: joi.string().required(),
-  phoneNumber: joi.number().max(11).required(),
+  phoneNumber: joi.number().required(),
 });
 export function ValidateUser(user: any) {
   return userSchema.validate(user);

@@ -87,6 +87,7 @@ export class UserController implements Icrud {
         res.json({
           case: 1,
           message: `authentication successful, Hello ${user["0"].username}`,
+          data: user,
         });
       } catch (error) {
         res.json({

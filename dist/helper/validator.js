@@ -42,7 +42,7 @@ const userSchema = joi_1.default.object().keys({
     lastname: joi_1.default.string().required(),
     picture: joi_1.default.string(),
     address: joi_1.default.string().required(),
-    phoneNumber: joi_1.default.number().max(11).required(),
+    phoneNumber: joi_1.default.number().required(),
 });
 function ValidateUser(user) {
     return userSchema.validate(user);
